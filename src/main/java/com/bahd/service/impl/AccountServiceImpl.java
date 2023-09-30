@@ -1,5 +1,6 @@
 package com.bahd.service.impl;
 
+import com.bahd.enums.AccountStatus;
 import com.bahd.enums.AccountType;
 import com.bahd.model.Account;
 import com.bahd.repository.AccountRepository;
@@ -24,7 +25,8 @@ public class AccountServiceImpl implements AccountService {
     public Account createNewAccount(BigDecimal balance, Date createDate, AccountType accountType, Long userId) {
         //we need to create account object
         Account account = Account.builder().id(UUID.randomUUID()).userId(userId)
-                .balance(balance).accountType(accountType).creationDate(createDate).build();
+                .balance(balance).accountType(accountType).creationDate(createDate)
+                .accountStatus((AccountStatus.ACTIVE)).build();
         //save into database(repository)
         //return the object created
         return accountRepository.save(account);
