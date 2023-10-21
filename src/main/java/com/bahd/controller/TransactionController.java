@@ -59,9 +59,17 @@ public class TransactionController {
     //transaction/{id}
     // return transaction/transactions page
     @GetMapping("/transaction/{id}")
-    public String getTransactionList(@PathVariable("id")UUID id){
+    public String getTransactionList(@PathVariable("id")UUID id, Model model){
+        //print the id
         System.out.println(id);
+        //get the list of transactions based on id and return as a model attribute
+        //TASK-  complete the method -> findTransactionById
+        model.addAttribute("transactions",transactionService.findTransactionById(id));
+
         return "transaction/transactions";
     }
+
+    //go to transactions.html
+    //based on size of the transactions either show "No Transaction" or list of transactions
 
 }
