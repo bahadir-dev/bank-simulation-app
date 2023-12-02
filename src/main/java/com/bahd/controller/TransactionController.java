@@ -1,8 +1,7 @@
 package com.bahd.controller;
 
-import com.bahd.enums.AccountStatus;
-import com.bahd.model.Account;
-import com.bahd.model.Transaction;
+import com.bahd.dto.AccountDTO;
+import com.bahd.dto.TransactionDTO;
 import com.bahd.service.AccountService;
 import com.bahd.service.TransactionService;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class TransactionController {
     @GetMapping("/make-transfer")
     public String getMakeTransfer(Model model){
         //what do we need to provide to make transfer happen : empty transaction object
-        model.addAttribute("transaction", Transaction.builder().build());
+        model.addAttribute("transaction", TransactionDTO.builder().build());
         //we need to provide the list of all accounts
         model.addAttribute("accounts", accountService.listAllAccount());
         //we need to list of last ten transactions
@@ -44,7 +43,7 @@ public class TransactionController {
     //write a post method that takes transaction object from the UI
     //complete the transfer and return the same page
     @PostMapping("/transfer")
-    public String makeTransfer( @ModelAttribute("transaction") @Valid Transaction transaction, BindingResult bindingResult,Model model){
+    public String makeTransfer(@ModelAttribute("transaction") @Valid TransactionDTO transactionDTO, BindingResult bindingResult, Model model){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("accounts", accountService.listAllAccount());
@@ -53,9 +52,9 @@ public class TransactionController {
         }
         //I have UUID of accounts but I need to provide Account object
         // I need to find the Accounts based on the ID that I have and use a parameter to complete makeTransfer method
-        Account sender =accountService.retrieveById(transaction.getSender());
-        Account receiver =accountService.retrieveById(transaction.getReceiver());
-        transactionService.makeTransfer(sender,receiver,transaction.getAmount(),new Date(),transaction.getMessage());
+        AccountDTO sender =accountService.retrieveById(transactionDTO.getSender());
+        AccountDTO receiver =accountService.retrieveById(transactionDTO.getReceiver());
+        transactionService.makeTransfer(sender,receiver, transactionDTO.getAmount(),new Date(), transactionDTO.getMessage());
 
                 return "redirect:/make-transfer";
     }

@@ -1,8 +1,7 @@
 package com.bahd;
 
+import com.bahd.dto.AccountDTO;
 import com.bahd.enums.AccountType;
-import com.bahd.model.Account;
-import com.bahd.model.Transaction;
 import com.bahd.service.AccountService;
 import com.bahd.service.TransactionService;
 import org.springframework.boot.SpringApplication;
@@ -24,8 +23,8 @@ public class BankSimulationAppApplication {
           TransactionService transactionService = container.getBean(TransactionService.class);
 //
 //        //create 2 accounts sender and receiver
-            Account sender = accountService.createNewAccount(BigDecimal.valueOf(70), new Date(), AccountType.CHECKING, 2L);
-           Account receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.SAVING, 2L);
+            AccountDTO sender = accountService.createNewAccount(BigDecimal.valueOf(70), new Date(), AccountType.CHECKING, 2L);
+           AccountDTO receiver = accountService.createNewAccount(BigDecimal.valueOf(50), new Date(), AccountType.SAVING, 2L);
 //        Account receiver2 =null;
 //        accountService.listAllAccount().forEach(System.out::println);
 //

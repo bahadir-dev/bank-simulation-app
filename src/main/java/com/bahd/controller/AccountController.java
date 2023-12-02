@@ -1,12 +1,11 @@
 package com.bahd.controller;
 
 import com.bahd.enums.AccountType;
-import com.bahd.model.Account;
+import com.bahd.dto.AccountDTO;
 import com.bahd.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +40,7 @@ public class AccountController {
     @GetMapping("/create-form")
     public String getCreateForm(Model model){
         // we need to send an empty account object
-        model.addAttribute("account", Account.builder().build());
+        model.addAttribute("account", new AccountDTO());
         //we need to provide account type enum for filling dropdown
         model.addAttribute("accountTypes", AccountType.values());
         return "account/create-account";
@@ -53,14 +52,14 @@ public class AccountController {
     //once user created  return back to the index page
 
     @PostMapping("/create")
-    public String createAccount(@Valid @ModelAttribute("account") Account account , BindingResult bindingResult,Model model){
+    public String createAccount(@Valid @ModelAttribute("account") AccountDTO accountDTO, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
 
             model.addAttribute("accountTypes", AccountType.values());
             return "account/create-account";
         }
-        System.out.println(account);
-        accountService.createNewAccount(account.getBalance(), new Date(), account.getAccountType(), account.getUserId());
+        System.out.println(accountDTO);
+        accountService.createNewAccount(accountDTO.getBalance(), new Date(), accountDTO.getAccountType(), accountDTO.getUserId());
 
         return "redirect:/index";
     }

@@ -1,7 +1,7 @@
 package com.bahd.service;
 
+import com.bahd.dto.AccountDTO;
 import com.bahd.enums.AccountType;
-import com.bahd.model.Account;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,12 +10,12 @@ import java.util.UUID;
 
 public interface AccountService {
 
-    Account createNewAccount(BigDecimal balance, Date createDate, AccountType accountType, Long userId);
+    AccountDTO createNewAccount(BigDecimal balance, Date createDate, AccountType accountType, Long userId);
 
-    List<Account> listAllAccount();
+    List<AccountDTO> listAllAccount();
     void deleteAccount(UUID id);
 
     void activateAccount(UUID id);
 
-    Account retrieveById(UUID id);
+    AccountDTO retrieveById(UUID id);
 }
