@@ -38,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
      @Override
-    public void deleteAccount(UUID id) {
+    public void deleteAccount(Long id) {
         //find the account belongs the id
        AccountDTO accountDTO = accountRepository.findById(id);
        //set status to deleted
@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void activateAccount(UUID id) {
+    public void activateAccount(Long id) {
         //find the account belongs the id
         AccountDTO accountDTO = accountRepository.findById(id);
         //set status to active
@@ -55,7 +55,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDTO retrieveById(UUID id) {
+    public AccountDTO retrieveById(Long id) {
         return accountRepository.findById(id);
     }
 }

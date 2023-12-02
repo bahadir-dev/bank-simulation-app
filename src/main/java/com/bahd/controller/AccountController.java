@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.UUID;
 
 @Controller
 public class AccountController {
@@ -65,7 +64,7 @@ public class AccountController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAccount(@PathVariable("id") UUID id){
+    public String deleteAccount(@PathVariable("id") Long id){
         //print the id on console
         System.out.println(id);
         accountService.deleteAccount(id);
@@ -74,7 +73,7 @@ public class AccountController {
     }
 
     @GetMapping("/activate/{id}")
-    public String activateAccount(@PathVariable("id") UUID id){
+    public String activateAccount(@PathVariable("id") Long id){
         System.out.println(id);
         accountService.activateAccount(id);
         return "redirect:/index";
